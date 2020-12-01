@@ -50,7 +50,7 @@ async def findAnime(ctx, anime_name: str, base_url: str = gogo_scraper.BASE_URL)
 
     :param anime: Search query
     :param base_url: Base Gogoanime URL. Useful if the current default URL gets taken down
-    :return: List of search results
+    :return: Iteratively outputs search results to discord chat
 
     """
 
@@ -239,8 +239,9 @@ async def stopEpisodeWatch(ctx, anime: str):
 
         if channel is not None:
             await channel.send(f'Stopping alerts for new episodes of {anime}')
-        print(f'Stopping alters for new episodes of {anime}')
 
+        print(f'Stopping alters for new episodes of {anime}')
+        await ctx.send(f'Stopping alters for new episodes of {anime}')
         del alerts[anime]
 
     else:
