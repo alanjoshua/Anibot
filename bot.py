@@ -110,7 +110,7 @@ async def showLatestEpisode(ctx, anime: str, base_url: str = gogo_scraper.BASE_U
 
 @bot.command(name='getEpisode', help='Find whether a given episode is available. Please input the exact name'
                                      'which could be found using the "findAnime" command')
-async def whetherEpisodeAvailable(ctx, anime: str, ep_num: int, base_url: str = gogo_scraper.BASE_URL):
+async def getEpisode(ctx, anime: str, ep_num: int, base_url: str = gogo_scraper.BASE_URL):
     """
 
     Check whether a particular eppisode is available
