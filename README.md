@@ -19,7 +19,7 @@
 <br />
 
 <p> Get link to naruto episode 10</p>
-<p> Here, "naruto" is the exact the anime title/link in Gogoanime. Other anime might have complicated titles, so first use !findAnime to get exact title</p>
+<p> Here, "naruto" is the exact anime title/link in Gogoanime. Other anime might have complicated titles, so first use !findAnime to get exact title</p>
 
 ```!getEpisode "naruto" 10```
 
