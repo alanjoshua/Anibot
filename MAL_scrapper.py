@@ -1,3 +1,9 @@
+# THIS IS AM ABANDONED MODULE
+
+# This module uses MAl to get information about anime, but I abandoned it because MAL is usually not immediately updated
+# with information about the latest anime, and sometimes even seasons that have finished airing have some \
+# episodes missing
+
 from mal import AnimeSearch
 from mal import Anime
 import requests

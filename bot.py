@@ -2,23 +2,33 @@ import asyncio
 import gogo_scraper
 import discord
 from discord.ext import commands
-import redis
-from discord.ext import tasks
 import os
 
-from dotenv import load_dotenv
+#######################################################################################################################
+# Solution to get Bot Token from environment file or redis server.
+# Please use whatever method suits you to store and access your Bot Token
 
+# Uses dotenv to load Token from .env file
+from dotenv import load_dotenv
 load_dotenv()
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 
+# Load Token from a redis server
+
+# import redis
 # redis_server = redis.Redis()
 # AUTH_TOKEN = str(redis_server.get('AUTH_TOKEN').decode('utf-8'))
 
-bot = commands.Bot(command_prefix='!')
+########################################################################################################################
 
-BASE_URL = 'https://gogoanime.so/'  # Change this if this link to gogoanime goes down
+bot = commands.Bot(command_prefix='!')  # Create a bot that used '!' as the keyphrase to access the bot's command
 
-tasks = {}
+# This is used to store all the currently running alert tasks
+alerts = {}
+
+# This should probably be replaced with something that stores information about currently running alerts to file, and
+# load it back, since with the current setup, if the bot is restarted, all the alerts would have to be manually
+# restarted
 
 
 @bot.event
@@ -32,7 +42,18 @@ async def ping(ctx):
 
 
 @bot.command(name='findAnime', help='Find anime based on search query')
-async def findAnime(ctx, anime_name: str, base_url: str = BASE_URL):
+async def findAnime(ctx, anime_name: str, base_url: str = gogo_scraper.BASE_URL):
+
+    """
+    Uses Gogoanime's (limited) search functionality to find the exact anime or anime the user wants to get info about.
+    This is required because the other functions in this bot require the user to input the exact title used in Gogoanime.
+
+    :param anime: Search query
+    :param base_url: Base Gogoanime URL. Useful if the current default URL gets taken down
+    :return: List of search results
+
+    """
+
     search = gogo_scraper.search(anime_name, base_url)
 
     if (search is None) or (len(search) == 0):
@@ -60,10 +81,22 @@ async def findAnime(ctx, anime_name: str, base_url: str = BASE_URL):
             await ctx.send('Showing next result...')
 
 
-@bot.command(name='latestEpisode', help='Get Latest episode of input anime. Please input the exact name'
+@bot.command(name='latestEpisode', help='Get latest episode of input anime. Please input the exact name'
                                         'which could be found using the "findAnime" command')
-async def showLatestEpisode(ctx, anime: str, base_url: str = BASE_URL):
-    latest = gogo_scraper.getLastEpisode(anime, base_url)
+async def showLatestEpisode(ctx, anime: str, base_url: str = gogo_scraper.BASE_URL):
+    """
+
+    Gets the latest episode of the input anime
+
+    This function uses selenium with Chrome in headless mode, so make sure to have chromedriver be installed and added
+    to system Path, and have Chrome installed
+
+    :param ctx: Discord Context
+    :param anime: Exact Gogoanime title/link
+    :param base_url: Base Gogoanime URL. Useful if the current default URL gets taken down
+    :return: Link and episode number of latest episode, or None if anime or episode was not found
+    """
+    latest = gogo_scraper.getLatestEpisode(anime, base_url)
     latest_ep = latest['num']
 
     output = f'''\n
@@ -77,7 +110,17 @@ async def showLatestEpisode(ctx, anime: str, base_url: str = BASE_URL):
 
 @bot.command(name='getEpisode', help='Find whether a given episode is available. Please input the exact name'
                                      'which could be found using the "findAnime" command')
-async def whetherEpisodeAvailable(ctx, anime: str, ep_num: int, base_url: str = BASE_URL):
+async def whetherEpisodeAvailable(ctx, anime: str, ep_num: int, base_url: str = gogo_scraper.BASE_URL):
+    """
+
+    Check whether a particular eppisode is available
+
+    :param ctx: Discord Context
+    :param anime: Exact Gogoanime title/link
+    :param ep_num: Required episode number
+    :param base_url: Base Gogoanime URL. Useful if the current default URL gets taken down
+    :return: Outputs to discord chat as to whether that specific episode is available
+    """
     episode = gogo_scraper.getEpisode(anime, ep_num, base_url)
 
     if episode is not None:
@@ -86,9 +129,19 @@ async def whetherEpisodeAvailable(ctx, anime: str, ep_num: int, base_url: str = 
         await ctx.send(f'Episode could not be found')
 
 
-# This assumes that the incoming "anime" is a valid anime
-# Task function that is used to check for new episodes of an anime
 async def checkForNewEpisode(ctx, anime, ep, timeout, channel):
+    """
+
+    Task function, that acts as the inner loop which checks for the arrival of a new episode of a given anime
+    This funciton is never called by the user directly.
+
+    :param ctx: Discord Context
+    :param anime: Exact Gogoanime title/link
+    :param ep: Current latest episode number
+    :param timeout: For what interval should the bot check for new episodes
+    :param channel: To which channel should the bot output alert messages
+    :return: None
+    """
     try:
         while True:
             episode = gogo_scraper.getEpisode(anime, ep)
@@ -111,9 +164,21 @@ async def checkForNewEpisode(ctx, anime, ep, timeout, channel):
         raise
 
 
-@bot.command(name='addAnimeAlert', help='Create an alert whenever a new episode of the provided anime is released on Gogoanime')
-async def alert(ctx, anime:str, timeout:int=100, channel_name:str='anime_alerts', base_url:str=BASE_URL):
+@bot.command(name='addAnimeAlert',
+             help='Create an alert whenever a new episode of the provided anime is released on Gogoanime')
+async def alert(ctx, anime: str, timeout: int = 100, channel_name: str = 'anime_alerts',
+                base_url: str = gogo_scraper.BASE_URL):
+    """
 
+    Function to add a new anime alert. Creates a new task for each alert by making use of checkForNewEpisode()
+
+    :param ctx: Discord Bot
+    :param anime: Exact Gogoanime title/link
+    :param timeout: For what interval should the bot check for new episodes
+    :param channel_name: To which channel should the bot output alert messages
+    :param base_url: Base Gogoanime URL. Useful if the current default URL gets taken down
+    :return: None
+    """
     guild = ctx.guild
     channel = discord.utils.get(guild.channels, name=channel_name)
 
@@ -128,15 +193,16 @@ async def alert(ctx, anime:str, timeout:int=100, channel_name:str='anime_alerts'
                            f' me.')
             return
 
-    if anime in tasks:
+    if anime in alerts:
         print('An alert for this anime already exists')
         await ctx.send("An alert for this anime already exists")
         return
 
-    lastEpisode = gogo_scraper.getLastEpisode(anime, base_url)
+    lastEpisode = gogo_scraper.getLatestEpisode(anime, base_url)
     if lastEpisode is None:
         print('This anime is either not a valid gogoanime anime title, or no episodes exist. Cannot create alerts')
-        await ctx.send('This anime is either not a valid gogoanime anime title, or no episodes exist. Cannot create alerts')
+        await ctx.send(
+            'This anime is either not a valid gogoanime anime title, or no episodes exist. Cannot create alerts')
         return
 
     await channel.send(f'Watching for new episodes of {anime}')
@@ -152,13 +218,20 @@ async def alert(ctx, anime:str, timeout:int=100, channel_name:str='anime_alerts'
     nextEpisodeNumber += 1
 
     task = bot.loop.create_task(checkForNewEpisode(ctx, anime, nextEpisodeNumber, timeout, channel))
-    tasks[anime] = {"task":task, "channel":channel}
+    alerts[anime] = {"task": task, "channel": channel}
 
 
 @bot.command(name='stopAnimeAlert', help='Stop sending alerts for new episodes of the provided anime')
 async def stopEpisodeWatch(ctx, anime: str):
-    if anime in tasks:
-        task = tasks[anime]
+    """
+    Stop ongoing alerts for new episodes of the given anime
+
+    :param ctx: Discord context
+    :param anime: Exact Gogoanime title/link
+    :return:
+    """
+    if anime in alerts:
+        task = alerts[anime]
         task['task'].cancel()
 
         guild = ctx.guild
@@ -168,11 +241,12 @@ async def stopEpisodeWatch(ctx, anime: str):
             await channel.send(f'Stopping alerts for new episodes of {anime}')
         print(f'Stopping alters for new episodes of {anime}')
 
-        del tasks[anime]
+        del alerts[anime]
 
     else:
         print('Could not find task')
         await ctx.send('Could not find task to stop')
 
 
+# Start bot
 bot.run(AUTH_TOKEN)

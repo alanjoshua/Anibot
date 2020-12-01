@@ -1,0 +1,52 @@
+[INFO  - 2020-12-01T20:05:16.199Z] GhostDriver - Main - running on port 64077
+[INFO  - 2020-12-01T20:05:18.253Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2020-12-01T20:05:18.253Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.customHeaders:  - {}
+[INFO  - 2020-12-01T20:05:18.253Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2020-12-01T20:05:18.254Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 88b31190-3410-11eb-acfb-b5df3319e9a8
+[ERROR - 2020-12-01T20:05:22.130Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'n.context.performance.getEntries()')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:22.130Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - stack:
+  onload (https://jsc.mgid.com/g/o/gogoanime.io.834094.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:24.251Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'n.context.performance.getEntries()')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:24.252Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - stack:
+  onload (https://jsc.mgid.com/g/o/gogoanime.io.267364.js?t=202011120:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:25.124Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:25.124Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - stack:
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  f (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+  (anonymous function) (https://c.disquscdn.com/js/dist/prebid.4.2.0.js:3)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:25.870Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - msg: TypeError: null is not an object (evaluating 'ele.tagName')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-12-01T20:05:25.871Z] Session [88b31190-3410-11eb-acfb-b5df3319e9a8] - page.onError - stack:
+  getElementTopLeft (https://gogoanime.so/category/naruto:846)
+  abcd (https://gogoanime.so/category/naruto:854)
+
+  phantomjs://platform/console++.js:263 in error
