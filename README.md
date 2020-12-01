@@ -29,7 +29,7 @@
 
 <p> Get latest episode from naruto </p>
 
-<p> This function uses requires selenium with chrome in headless mode, so make sure to have chromedrivers installed and added to system path </p>
+<p> This function uses selenium with chrome in headless mode, so make sure to have chromedrivers installed and added to system path </p>
 
 ```latest_episode = !latestAnime "naruto"```
 <br />
