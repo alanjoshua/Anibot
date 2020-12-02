@@ -31,7 +31,7 @@
 
 <p> This function uses selenium with chrome in headless mode, so make sure to have chromedriver installed and added to system path </p>
 
-```latest_episode = !latestAnime "naruto"```
+```!latestEpisode "naruto"```
 <br />
 <br />
 <br />
