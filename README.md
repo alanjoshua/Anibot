@@ -1,6 +1,6 @@
 # AniBot
 
-<p> This is a simple discord bot that uses my simple Gogoanime scrapper to create a discord bot capable of functionality such as searching for anime, getting links to direct episodes, getting the link to the latest episode of an anime, and also scheduling automatic alerts for new episodes of an anime</p>
+This is a simple discord bot that uses my simple Gogoanime scraper (`pip install gogo_scraper`) to create a discord bot capable of functionality such as searching for anime, getting links to direct episodes, getting the link to the latest episode of an anime, and also scheduling automatic alerts for new episodes of an anime
 
 <br />
 <br />
