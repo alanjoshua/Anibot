@@ -68,6 +68,7 @@ async def findAnime(ctx, anime_name: str, base_url: str = gogo_scraper.BASE_URL)
                     Title: {anime['name']}
                     Released: {anime['released']}
                     link: {anime['link']}
+                    gogoTitle: {anime['gogoTitle']}
                 '''
         await ctx.send(output)
 
@@ -87,9 +88,6 @@ async def showLatestEpisode(ctx, anime: str, base_url: str = gogo_scraper.BASE_U
     """
 
     Gets the latest episode of the input anime
-
-    This function uses selenium with Chrome in headless mode, so make sure to have chromedriver be installed and added
-    to system Path, and have Chrome installed
 
     :param ctx: Discord Context
     :param anime: Exact Gogoanime title/link
