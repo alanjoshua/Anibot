@@ -148,7 +148,7 @@ async def checkForNewEpisode(ctx, anime, ep, timeout, channel):
                 output = f'''\n
                         New episode of {anime} has been released \n
                         Episode number: {ep}
-                        Link: {episode['link']}
+                        Link: {episode}
                         '''
                 await channel.send(output)
                 print(f'New episode has been found for {anime}')
