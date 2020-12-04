@@ -10,7 +10,7 @@
 <br />
 <br />
 
-<p> Searches for naruto on gogoanime, and outputs each result onto discord char</p> 
+<p> Searches for naruto on gogoanime, and outputs each result onto discord chat. Use gogoTitle to specify exact anime id for the other commands</p> 
   
 ```!findAnime "naruto"```
 
@@ -19,7 +19,7 @@
 <br />
 
 <p> Get link to naruto episode 10</p>
-<p> Here, "naruto" is the exact anime title/link in Gogoanime. Other anime might have complicated titles, so first use !findAnime to get exact title</p>
+<p> Here, "naruto" is the exact anime title/link in Gogoanime. Other anime might have complicated titles, so first use !findAnime to get exact gogoanime Title</p>
 
 ```!getEpisode "naruto" 10```
 
