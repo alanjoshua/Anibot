@@ -29,8 +29,6 @@
 
 <p> Get latest episode from naruto </p>
 
-<p> This function uses selenium with chrome in headless mode, so make sure to have chromedriver installed and added to system path </p>
-
 ```!latestEpisode "naruto"```
 <br />
 <br />
