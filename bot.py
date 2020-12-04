@@ -41,7 +41,8 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency * 1000)}ms ')
 
 
-@bot.command(name='findAnime', help='Find anime based on search query')
+@bot.command(name='findAnime', help='Find anime based on search query. use gogoTitle to specify anime in the other '
+                                    'commands')
 async def findAnime(ctx, anime_name: str, base_url: str = gogo_scraper.BASE_URL):
 
     """
