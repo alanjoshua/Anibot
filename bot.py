@@ -239,7 +239,7 @@ async def stopEpisodeWatch(ctx, anime: str):
         if channel is not None:
             await channel.send(f'Stopping alerts for new episodes of {anime}')
 
-        print(f'Stopping alters for new episodes of {anime}')
+        print(f'Stopping alerts for new episodes of {anime}')
         await ctx.send(f'Stopping alters for new episodes of {anime}')
         del alerts[anime]
 
